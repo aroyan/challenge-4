@@ -1,7 +1,7 @@
-import "./App.css";
+import Layout from "./components/Layout";
 
 function App() {
-  return <div className="App">Hello</div>;
+  return <Layout>App.jsx</Layout>;
 }
 
 export default App;
