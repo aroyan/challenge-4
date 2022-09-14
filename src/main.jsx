@@ -1,13 +1,15 @@
 import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Add from "./pages/Add";
+import App from "./App";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import Add from "./pages/Add";
 import Update from "./pages/Update";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import EditContextProvider from "./context/EditContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <EditContextProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
@@ -15,5 +17,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/add" element={<Add />} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
+  </EditContextProvider>
+  // </React.StrictMode>
 );

@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
           ToDo-Lists
         </Link>
       </nav>
-      <section className="container px-4">{children}</section>
+      <section className="mx-16">{children}</section>
     </main>
   );
 };

@@ -1,7 +1,12 @@
+import Home from "./pages/Home";
 import Layout from "./components/Layout";
 
 function App() {
-  return <Layout>App.jsx</Layout>;
+  return (
+    <Layout>
+      <Home />
+    </Layout>
+  );
 }
 
 export default App;
