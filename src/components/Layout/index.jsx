@@ -10,7 +10,7 @@ function Layout({ children }) {
           ToDo-Lists
         </Link>
       </nav>
-      <section className="mx-16">{children}</section>
+      <section className="mx-6 lg:mx-16">{children}</section>
     </main>
   );
 }

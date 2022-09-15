@@ -1,3 +1,5 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EditContext } from '../context/EditContext';
@@ -6,17 +8,34 @@ function Home() {
   const [todos, setTodos] = useState(null);
   const [refetch, setRefetch] = useState(true);
   const [query, setQuery] = useState('');
-
-  // prettier-ignore
-  const searchResut = todos?.filter((x) => x.task.toLowerCase().includes(query.toLowerCase()));
+  const [option, setOption] = useState('all');
 
   const { setEditTodo } = useContext(EditContext);
   const navigate = useNavigate();
 
+  // prettier-ignore
+  const searchResut = todos?.filter((x) => x.task.toLowerCase().includes(query.toLowerCase()));
+  const completedTodos = todos
+    ?.filter((todo) => todo.complete === true)
+    .filter((x) => x.task.toLowerCase().includes(query.toLowerCase()));
+  const uncompletedTodos = todos
+    ?.filter((todo) => todo.complete === false)
+    .filter((x) => x.task.toLowerCase().includes(query.toLowerCase()));
+
+  let result;
+
+  if (option === 'completedTodos') {
+    result = completedTodos;
+  } else if (option === 'uncompletedTodos') {
+    result = uncompletedTodos;
+  } else {
+    result = searchResut;
+  }
+
   const getTodos = async () => {
     const response = await fetch(import.meta.env.VITE_TODOS_API);
-    const result = await response.json();
-    setTodos(result);
+    const allTodos = await response.json();
+    setTodos(allTodos);
     setRefetch(false);
   };
 
@@ -40,9 +59,26 @@ function Home() {
 
   return (
     <div className="mt-8 mb-12">
-      <button className="bg-blue-600 text-white p-2 rounded-md" type="button">
-        <Link to="/add">Add New Todo</Link>
-      </button>
+      <section className="flex justify-between">
+        <button
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          type="button"
+        >
+          <Link to="/add">Add New Todo</Link>
+        </button>
+        <form>
+          <select
+            id="filtertodo"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-32 p-2.5 dark:bg-gray-700 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 border-r-8 border-solid cursor-pointer"
+            onChange={(e) => setOption(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="completedTodos">Done</option>
+            <option value="uncompletedTodos">Todo</option>
+          </select>
+        </form>
+      </section>
+
       <form className="my-6">
         {/*  eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label
@@ -76,6 +112,7 @@ function Home() {
             className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search Todos"
             value={query}
+            // prettier-ignore
             onChange={(e) => setQuery(e.target.value)}
             required
           />
@@ -83,13 +120,13 @@ function Home() {
       </form>
 
       {todos ? (
-        searchResut?.map((todo) => (
+        result?.map((todo) => (
           <div
             key={todo.id}
             className={
               !todo.complete
-                ? 'flex justify-between mb-4 bg-blue-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap'
-                : 'flex justify-between mb-4 bg-red-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap'
+                ? 'flex justify-between mb-4 bg-blue-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap flex-col sm:flex-row'
+                : 'flex justify-between mb-4 bg-red-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap flex-col sm:flex-row'
             }
           >
             <p
@@ -99,7 +136,7 @@ function Home() {
             >
               {todo.task}
             </p>
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center my-4 sm:my-0">
               <input
                 className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 type="checkbox"
