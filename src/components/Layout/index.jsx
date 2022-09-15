@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Layout = ({ children }) => {
+function Layout({ children }) {
   return (
     <main>
       <nav className="bg-white border-gray-200 text-black px-2 sm:px-4 py-2.5 dark:bg-gray-900 dark:text-white">
@@ -11,6 +13,6 @@ const Layout = ({ children }) => {
       <section className="mx-16">{children}</section>
     </main>
   );
-};
+}
 
 export default Layout;

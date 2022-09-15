@@ -1,13 +1,14 @@
-import "./index.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Add from "./pages/Add";
-import App from "./App";
-import React from "react";
-import ReactDOM from "react-dom/client";
-import Update from "./pages/Update";
-import EditContextProvider from "./context/EditContext";
+/* eslint-disable comma-dangle */
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Add from './pages/Add';
+import App from './App';
+import Update from './pages/Update';
+import EditContextProvider from './context/EditContext';
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <EditContextProvider>
     <BrowserRouter>

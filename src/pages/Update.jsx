@@ -1,10 +1,10 @@
-import Layout from "../components/Layout";
-import { useContext, useState } from "react";
-import { EditContext } from "../context/EditContext";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import Layout from '../components/Layout';
+import { EditContext } from '../context/EditContext';
 
-const Update = () => {
-  const { editTodo, setEditTodo } = useContext(EditContext);
+function Update() {
+  const { editTodo } = useContext(EditContext);
   const [newTodo, setNewTodo] = useState(editTodo);
 
   const { id } = useParams();
@@ -12,15 +12,15 @@ const Update = () => {
 
   const handleUpdate = async () => {
     await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({
         task: newTodo,
       }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }).then((x) => {
-      if (x.status === 200) navigate("/");
+      if (x.status === 200) navigate('/');
     });
   };
 
@@ -40,12 +40,12 @@ const Update = () => {
           e.preventDefault();
           handleUpdate();
         }}
-        disabled={editTodo ? false : true}
+        disabled={!editTodo}
       >
         Update Todo
       </button>
     </Layout>
   );
-};
+}
 
 export default Update;

@@ -1,26 +1,26 @@
-import Layout from "../components/Layout";
-import { useState, useContext } from "react";
-import { EditContext } from "../context/EditContext";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { EditContext } from '../context/EditContext';
+import Layout from '../components/Layout';
 
-const Add = () => {
-  const [newTodo, setNewTodo] = useState("");
-  const { editTodo, setEditTodo } = useContext(EditContext);
+function Add() {
+  const [newTodo, setNewTodo] = useState('');
+  const { editTodo } = useContext(EditContext);
 
   const navigate = useNavigate();
 
   const handleAdd = async () => {
     await fetch(import.meta.env.VITE_TODOS_API, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         task: newTodo,
       }),
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
     }).then((x) => {
       if (x.status === 201) {
-        navigate("/");
+        navigate('/');
       }
     });
   };
@@ -45,13 +45,13 @@ const Add = () => {
             e.preventDefault();
             handleAdd();
           }}
-          disabled={newTodo ? false : true}
+          disabled={!newTodo}
         >
           Add Todo
         </button>
       </form>
     </Layout>
   );
-};
+}
 
 export default Add;

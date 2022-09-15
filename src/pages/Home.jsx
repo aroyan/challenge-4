@@ -1,16 +1,16 @@
-import { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { EditContext } from "../context/EditContext";
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { EditContext } from '../context/EditContext';
 
-const Home = () => {
+function Home() {
   const [todos, setTodos] = useState(null);
   const [refetch, setRefetch] = useState(true);
-  const [query, setQuery] = useState("");
-  const searchResut = todos?.filter((x) =>
-    x.task.toLowerCase().includes(query.toLowerCase())
-  );
+  const [query, setQuery] = useState('');
 
-  const { editTodo, setEditTodo } = useContext(EditContext);
+  // prettier-ignore
+  const searchResut = todos?.filter((x) => x.task.toLowerCase().includes(query.toLowerCase()));
+
+  const { setEditTodo } = useContext(EditContext);
   const navigate = useNavigate();
 
   const getTodos = async () => {
@@ -22,12 +22,12 @@ const Home = () => {
 
   const setComplete = async (id, currentValue) => {
     await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({
         complete: !currentValue,
       }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }).then(() => {
       setRefetch(true);
@@ -40,10 +40,11 @@ const Home = () => {
 
   return (
     <div className="mt-8 mb-12">
-      <button className="bg-blue-600 text-white p-2 rounded-md">
+      <button className="bg-blue-600 text-white p-2 rounded-md" type="button">
         <Link to="/add">Add New Todo</Link>
       </button>
       <form className="my-6">
+        {/*  eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -65,7 +66,7 @@ const Home = () => {
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
+              />
             </svg>
           </div>
           <input
@@ -87,13 +88,13 @@ const Home = () => {
             key={todo.id}
             className={
               !todo.complete
-                ? "flex justify-between mb-4 bg-blue-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap"
-                : "flex justify-between mb-4 bg-red-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap"
+                ? 'flex justify-between mb-4 bg-blue-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap'
+                : 'flex justify-between mb-4 bg-red-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap'
             }
           >
             <p
               className={
-                todo.complete ? "text-red-600 line-through" : "text-blue-600"
+                todo.complete ? 'text-red-600 line-through' : 'text-blue-600'
               }
             >
               {todo.task}
@@ -113,6 +114,7 @@ const Home = () => {
                   setEditTodo(todo.task);
                   navigate(`/update/${todo.id}`);
                 }}
+                type="button"
               >
                 Edit
               </button>
@@ -120,9 +122,10 @@ const Home = () => {
                 className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                 onClick={async () => {
                   await fetch(`${import.meta.env.VITE_TODOS_API}/${todo.id}`, {
-                    method: "DELETE",
+                    method: 'DELETE',
                   }).then(() => setRefetch(true));
                 }}
+                type="button"
               >
                 Remove
               </button>
@@ -134,6 +137,6 @@ const Home = () => {
       )}
     </div>
   );
-};
+}
 
 export default Home;

@@ -1,52 +1,54 @@
-export const initialTodos = [
+const initialTodos = [
   {
     id: 1,
-    task: "Nyuci mobil",
+    task: 'Nyuci mobil',
     complete: true,
   },
   {
     id: 2,
-    task: "Memberi makan kucing",
+    task: 'Memberi makan kucing',
     complete: true,
   },
   {
     id: 3,
-    task: "Olahraga 10 menit",
+    task: 'Olahraga 10 menit',
     complete: false,
   },
   {
     id: 4,
-    task: "Sarapan sereal",
+    task: 'Sarapan sereal',
     complete: true,
   },
   {
     id: 5,
-    task: "Belanja harian",
+    task: 'Belanja harian',
     complete: false,
   },
   {
     id: 6,
-    task: "Ngeprint tugas",
+    task: 'Ngeprint tugas',
     complete: true,
   },
   {
     id: 7,
-    task: "Bayar tagihan bulanan",
+    task: 'Bayar tagihan bulanan',
     complete: true,
   },
   {
     id: 8,
-    task: "Berangkat kuliah",
+    task: 'Berangkat kuliah',
     complete: false,
   },
   {
     id: 9,
-    task: "Les bahasa Inggris",
+    task: 'Les bahasa Inggris',
     complete: true,
   },
   {
     id: 10,
-    task: "Ke rumah Sabrina",
+    task: 'Ke rumah Sabrina',
     complete: false,
   },
 ];
+
+export default initialTodos;
