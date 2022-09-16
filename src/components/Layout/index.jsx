@@ -13,8 +13,15 @@ function Layout({ children }) {
           To-do-do
         </Link>
         <div className="flex gap-4 items-center">
-          <Link to="/">Home</Link>
-          <Link to="/add">Add</Link>
+          <Link to="/" className="hover:border-b-yellow-600 hover:border-b-4">
+            Home
+          </Link>
+          <Link
+            to="/add"
+            className="hover:border-b-yellow-600 hover:border-b-4"
+          >
+            Add
+          </Link>
         </div>
       </nav>
       <section className="mx-6 lg:mx-16">{children}</section>
@@ -25,12 +32,9 @@ function Layout({ children }) {
         </span>
         <ul className="flex flex-wrap items-center mt-3 text-sm  dark:text-gray-400 sm:mt-0">
           <li>
-            <a
-              href="https://github.com/aroyan"
-              className="mr-4 hover:underline md:mr-6 "
-            >
+            <Link to="/about" className="mr-4 hover:underline md:mr-6 ">
               About
-            </a>
+            </Link>
           </li>
         </ul>
       </footer>

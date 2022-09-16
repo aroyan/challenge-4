@@ -7,6 +7,8 @@ import Add from './pages/Add';
 import App from './App';
 import Update from './pages/Update';
 import EditContextProvider from './context/EditContext';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
@@ -16,6 +18,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/update/:id" element={<Update />} />
         <Route path="/add" element={<Add />} />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </EditContextProvider>

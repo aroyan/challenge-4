@@ -25,7 +25,7 @@ function Add() {
 
   return (
     <Layout>
-      <section className="flex calc(w-screen - 64px) h-screen justify-center items-center">
+      <section className="flex h-[calc(100vh-136px)] justify-center items-center">
         <form className="mt-8" onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
