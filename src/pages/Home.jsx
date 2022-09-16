@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable comma-dangle */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable implicit-arrow-linebreak */
@@ -17,7 +18,9 @@ function Home() {
   const navigate = useNavigate();
 
   // prettier-ignore
-  const searchResut = todos?.filter((x) => x.task.toLowerCase().includes(query.toLowerCase()));
+  const searchResult = todos?.filter((x) =>
+    x.task.toLowerCase().includes(query.toLowerCase())
+  );
   const completedTodos = todos
     ?.filter((todo) => todo.complete === true)
     .filter((todo) => todo.task.toLowerCase().includes(query.toLowerCase()));
@@ -38,7 +41,7 @@ function Home() {
   } else if (option === 'uncompletedTodos') {
     result = uncompletedTodos;
   } else {
-    result = searchResut;
+    result = searchResult;
   }
 
   const getTodos = async () => {
@@ -75,7 +78,7 @@ function Home() {
   }, [refetch]);
 
   return (
-    <div className="mt-8 mb-12">
+    <div className="mt-8 mb-12 min-h-screen">
       <section className="flex justify-between">
         <button
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -183,9 +186,18 @@ function Home() {
           </div>
         ))
       ) : (
-        <p>Loading....</p>
+        <div className="h-screen">
+          <p className="text-center">Loading....</p>
+        </div>
       )}
-      {idCompletedTodos?.length > 0 ? (
+
+      {!searchResult?.length && (
+        <div className="h-screen">
+          <p className="text-center">{query} not found</p>
+        </div>
+      )}
+
+      {idCompletedTodos?.length > 0 && !query ? (
         <button
           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
           onClick={() => {
@@ -207,7 +219,7 @@ function Home() {
         </button>
       ) : null}
 
-      {idAllTodos?.length > 0 ? (
+      {idAllTodos?.length > 0 && !query ? (
         <button
           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
           onClick={() => {
