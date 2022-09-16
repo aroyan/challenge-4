@@ -156,11 +156,13 @@ function Home() {
               {todo.task}
             </p>
             <div className="flex gap-4 items-center my-4 sm:my-0">
+              <label htmlFor="setComplete" className="sr-only">
+                Done
+              </label>
               <input
                 className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 type="checkbox"
                 name="setComplete"
-                id="setComplete"
                 checked={todo.complete}
                 onChange={() => setComplete(todo.id, todo.complete)}
               />
