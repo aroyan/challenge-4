@@ -1,5 +1,8 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable function-paren-newline */
+
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EditContext } from '../context/EditContext';
@@ -17,10 +20,16 @@ function Home() {
   const searchResut = todos?.filter((x) => x.task.toLowerCase().includes(query.toLowerCase()));
   const completedTodos = todos
     ?.filter((todo) => todo.complete === true)
-    .filter((x) => x.task.toLowerCase().includes(query.toLowerCase()));
+    .filter((todo) => todo.task.toLowerCase().includes(query.toLowerCase()));
   const uncompletedTodos = todos
     ?.filter((todo) => todo.complete === false)
-    .filter((x) => x.task.toLowerCase().includes(query.toLowerCase()));
+    .filter((todo) => todo.task.toLowerCase().includes(query.toLowerCase()));
+
+  const idCompletedTodos = todos
+    ?.filter((todo) => todo.complete === true)
+    .map((todo) => todo.id);
+
+  const idAllTodos = todos?.map((todo) => todo.id);
 
   let result;
 
@@ -53,6 +62,14 @@ function Home() {
     });
   };
 
+  const handleDelete = async (id) => {
+    const response = await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
+      method: 'DELETE',
+    });
+    const resultDelete = await response.status;
+    if (resultDelete === 200) setRefetch(true);
+  };
+
   useEffect(() => {
     if (refetch) getTodos();
   }, [refetch]);
@@ -70,7 +87,7 @@ function Home() {
           <select
             id="filtertodo"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500  w-32 p-2.5 dark:bg-gray-700 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 border-r-8 border-solid cursor-pointer"
-            onChange={(e) => setOption(e.target.value)}
+            onChange={(event) => setOption(event.target.value)}
           >
             <option value="all">All</option>
             <option value="completedTodos">Done</option>
@@ -113,7 +130,7 @@ function Home() {
             placeholder="Search Todos"
             value={query}
             // prettier-ignore
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(event) => setQuery(event.target.value)}
             required
           />
         </div>
@@ -157,11 +174,7 @@ function Home() {
               </button>
               <button
                 className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                onClick={async () => {
-                  await fetch(`${import.meta.env.VITE_TODOS_API}/${todo.id}`, {
-                    method: 'DELETE',
-                  }).then(() => setRefetch(true));
-                }}
+                onClick={() => handleDelete(todo.id)}
                 type="button"
               >
                 Remove
@@ -172,6 +185,49 @@ function Home() {
       ) : (
         <p>Loading....</p>
       )}
+      {idCompletedTodos?.length > 0 ? (
+        <button
+          className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          onClick={() => {
+            Promise.all(
+              idCompletedTodos.map((id) =>
+                fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
+                  method: 'DELETE',
+                })
+                  .then((res) => res)
+                  .then((data) => data.status)
+              )
+            ).then((res) => {
+              if (res.every((code) => code === 200)) setRefetch(true);
+            });
+          }}
+          type="button"
+        >
+          Delete done tasks
+        </button>
+      ) : null}
+
+      {idAllTodos?.length > 0 ? (
+        <button
+          className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          onClick={() => {
+            Promise.all(
+              idAllTodos.map((id) =>
+                fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
+                  method: 'DELETE',
+                })
+                  .then((res) => res)
+                  .then((data) => data.status)
+              )
+            ).then((res) => {
+              if (res.every((code) => code === 200)) setRefetch(true);
+            });
+          }}
+          type="button"
+        >
+          Delete all tasks
+        </button>
+      ) : null}
     </div>
   );
 }
