@@ -12,7 +12,7 @@ function Update() {
 
   const handleUpdate = async () => {
     await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         task: newTodo,
       }),
@@ -20,7 +20,10 @@ function Update() {
         'Content-Type': 'application/json',
       },
     }).then((x) => {
-      if (x.status === 200) navigate('/');
+      if (x.status === 200) {
+        navigate('/');
+        setEditTodo('');
+      }
     });
   };
 
@@ -41,7 +44,6 @@ function Update() {
             onClick={(e) => {
               e.preventDefault();
               handleUpdate();
-              setEditTodo('');
             }}
             disabled={!editTodo}
           >

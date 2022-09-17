@@ -20,7 +20,7 @@ function Home() {
    * @return Array
    */
   const searchResult = todos?.filter((x) =>
-    x.task.toLowerCase().includes(query.toLowerCase())
+    x.task?.toLowerCase().includes(query?.toLowerCase())
   );
 
   /**
@@ -78,7 +78,7 @@ function Home() {
 
   const handleSetComplete = async (id, currentValue) => {
     await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         complete: !currentValue,
       }),
@@ -143,7 +143,7 @@ function Home() {
             key={todo.id}
             todo={todo}
             handleDelete={handleDelete}
-            setComplete={handleSetComplete}
+            setComplete={() => handleSetComplete(todo.id, todo.complete)}
           />
         ))
       ) : (
