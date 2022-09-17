@@ -1,15 +1,21 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { EditContext } from '../../context/EditContext';
 
 function Layout({ children }) {
   const year = new Date().getFullYear();
   const copyright = `© ${year} Aroyan. All Rights Reserved.`;
+  const { setEditTodo } = useContext(EditContext);
 
   return (
     <main>
       <nav className="flex  justify-between text-white bg-blue-600 border-blue-200 px-4 md:px-16 py-5 dark:bg-gray-900 ">
-        <Link to="/" className="font-bold text-xl">
+        <Link
+          to="/"
+          className="font-bold text-xl"
+          onClick={() => setEditTodo('')}
+        >
           To-do-do
         </Link>
         <div className="flex gap-4 items-center">
