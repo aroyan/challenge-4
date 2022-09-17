@@ -28,6 +28,12 @@ function Layout({ children }) {
           >
             Add
           </Link>
+          <Link
+            to="/modal"
+            className="hover:border-b-yellow-600 hover:border-b-4"
+          >
+            Modal
+          </Link>
         </div>
       </nav>
       <section className="mx-6 lg:mx-16">{children}</section>

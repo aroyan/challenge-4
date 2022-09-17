@@ -9,6 +9,7 @@ import Update from './pages/Update';
 import EditContextProvider from './context/EditContext';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import Modal from './pages/Modal';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/update/:id" element={<Update />} />
         <Route path="/add" element={<Add />} />
         <Route path="/about" element={<About />} />
+        <Route path="/modal" element={<Modal />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
