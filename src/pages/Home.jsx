@@ -165,12 +165,12 @@ function Home() {
           )}
         </div>
       )}
-      {idCompletedTodos?.length > 0 && !query ? (
+      {idCompletedTodos?.length > 0 && !query && option === 'default' ? (
         <DeleteButton handleDeleteFunc={handleDeleteDone}>
           Delete done tasks
         </DeleteButton>
       ) : null}{' '}
-      {idAllTodos?.length > 0 && !query ? (
+      {idAllTodos?.length > 0 && !query && option === 'default' ? (
         <DeleteButton handleDeleteFunc={handleDeleteAll}>
           Delete all tasks
         </DeleteButton>

@@ -45,7 +45,7 @@ function Update() {
               e.preventDefault();
               handleUpdate();
             }}
-            disabled={!editTodo}
+            disabled={!editTodo || !newTodo}
           >
             Update Todo
           </button>
