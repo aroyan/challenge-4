@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import AddNewTodoButton from '../components/Buttons/AddNewTodoButton';
 import DeleteButton from '../components/Buttons/DeleteButton';
+import Layout from '../components/Layout';
 import SelectForm from '../components/Forms/SelectForm';
 import SearchForm from '../components/Forms/SearchForm';
 import TodoCard from '../components/TodoCard';
@@ -131,51 +132,57 @@ function Home() {
   }, [refetch]);
 
   return (
-    <div className="mt-8 mb-12 min-h-screen">
-      <section className="flex justify-between">
-        <AddNewTodoButton />
-        <SelectForm setOption={setOption} disabled={!todos?.length} />
-      </section>
-      <SearchForm query={query} setQuery={setQuery} disabled={!todos?.length} />
-      {todos ? (
-        result?.map((todo) => (
-          <TodoCard
-            key={todo.id}
-            todo={todo}
-            handleDelete={handleDelete}
-            setComplete={() => handleSetComplete(todo.id, todo.complete)}
-          />
-        ))
-      ) : (
-        <div className="h-screen">
-          <p className="text-center">Loading....</p>
-        </div>
-      )}
-      {!searchResult?.length && (
-        <div className="h-screen text-center">
-          {query ? (
-            <p>{query} not found</p>
-          ) : (
-            <>
-              <p className="text-2xl font-semibold">Yeay, no todo sofar.</p>
-              <p className="text-2xl font-semibold mt-4 text-blue-800">
-                Enjoy your day!
-              </p>
-            </>
-          )}
-        </div>
-      )}
-      {idCompletedTodos?.length > 0 && !query && option === 'default' ? (
-        <DeleteButton handleDeleteFunc={handleDeleteDone}>
-          Delete done tasks
-        </DeleteButton>
-      ) : null}{' '}
-      {idAllTodos?.length > 0 && !query && option === 'default' ? (
-        <DeleteButton handleDeleteFunc={handleDeleteAll}>
-          Delete all tasks
-        </DeleteButton>
-      ) : null}
-    </div>
+    <Layout>
+      <div className="mt-8 mb-12 min-h-screen">
+        <section className="flex justify-between">
+          <AddNewTodoButton />
+          <SelectForm setOption={setOption} disabled={!todos?.length} />
+        </section>
+        <SearchForm
+          query={query}
+          setQuery={setQuery}
+          disabled={!todos?.length}
+        />
+        {todos ? (
+          result?.map((todo) => (
+            <TodoCard
+              key={todo.id}
+              todo={todo}
+              handleDelete={handleDelete}
+              setComplete={() => handleSetComplete(todo.id, todo.complete)}
+            />
+          ))
+        ) : (
+          <div className="h-screen">
+            <p className="text-center">Loading....</p>
+          </div>
+        )}
+        {!searchResult?.length && (
+          <div className="h-screen text-center">
+            {query ? (
+              <p>{query} not found</p>
+            ) : (
+              <>
+                <p className="text-2xl font-semibold">Yeay, no todo sofar.</p>
+                <p className="text-2xl font-semibold mt-4 text-blue-800">
+                  Enjoy your day!
+                </p>
+              </>
+            )}
+          </div>
+        )}
+        {idCompletedTodos?.length > 0 && !query && option === 'default' ? (
+          <DeleteButton handleDeleteFunc={handleDeleteDone}>
+            Delete done tasks
+          </DeleteButton>
+        ) : null}{' '}
+        {idAllTodos?.length > 0 && !query && option === 'default' ? (
+          <DeleteButton handleDeleteFunc={handleDeleteAll}>
+            Delete all tasks
+          </DeleteButton>
+        ) : null}
+      </div>
+    </Layout>
   );
 }
 

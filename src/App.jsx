@@ -1,12 +1,20 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import About from './pages/About';
+import Add from './pages/Add';
 import Home from './pages/Home';
-import Layout from './components/Layout';
+import NotFound from './pages/NotFound';
+import Update from './pages/Update';
 
 function App() {
   return (
-    <Layout>
-      <Home />
-    </Layout>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/update/:id" element={<Update />} />
+      <Route path="/add" element={<Add />} />
+      <Route path="/about" element={<About />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
