@@ -32,17 +32,16 @@ function Layout({ children }) {
       </nav>
       <section className="mx-6 lg:mx-16">{children}</section>
 
-      <footer className="p-4 bg-blue-600 text-white shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
+      <footer className="p-4 bg-blue-600 text-white shadow flex items-center justify-between dark:bg-gray-800">
         <span className="text-sm sm:text-center dark:text-gray-400">
           {copyright}
         </span>
-        <ul className="flex flex-wrap items-center mt-3 text-sm  dark:text-gray-400 sm:mt-0">
-          <li>
-            <Link to="/about" className="mr-4 hover:underline md:mr-6 ">
-              About
-            </Link>
-          </li>
-        </ul>
+        <Link
+          to="/about"
+          className="mr-4 hover:underline md:mr-6 text-sm dark:text-gray-400"
+        >
+          About
+        </Link>
       </footer>
     </main>
   );
