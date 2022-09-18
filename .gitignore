@@ -25,3 +25,6 @@ dist-ssr
 
 # Config
 .env
+
+# Local
+db.json
