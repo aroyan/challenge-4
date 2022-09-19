@@ -79,7 +79,7 @@ function Home() {
 
   const handleSetComplete = async (id, currentValue) => {
     await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
-      method: 'PATCH',
+      method: 'PUT',
       body: JSON.stringify({
         complete: !currentValue,
       }),
@@ -133,7 +133,7 @@ function Home() {
 
   return (
     <Layout>
-      <div className="mt-8 mb-12 min-h-screen">
+      <div className="mt-8 mb-12 min-h-screen font-krona-one">
         <section className="flex justify-between">
           <AddNewTodoButton />
           <SelectForm setOption={setOption} disabled={!todos?.length} />
