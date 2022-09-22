@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'krona-one': ['Krona One', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
       },
     },
   },
