@@ -4,6 +4,8 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EditContext } from '../context/EditContext';
+import Trash from './Icons/Trash';
+import Pencil from './Icons/Pencil';
 
 function TodoCard({ todo, setComplete, handleDelete }) {
   const { setEditTodo } = useContext(EditContext);
@@ -14,8 +16,8 @@ function TodoCard({ todo, setComplete, handleDelete }) {
       key={todo.id}
       className={
         !todo.complete
-          ? 'flex justify-between mb-4 bg-blue-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap flex-col sm:flex-row'
-          : 'flex justify-between mb-4 bg-red-200 p-4 rounded-lg items-center font-bold text-xl flex-wrap flex-col sm:flex-row'
+          ? 'flex justify-between mb-4 bg-blue-200 p-4 rounded-lg items-center font-black leading-8 text-xl flex-wrap flex-col sm:flex-row font-roboto'
+          : 'flex justify-between mb-4 bg-red-200 p-4 rounded-lg items-center font-black leading-8 text-xl flex-wrap flex-col sm:flex-row font-roboto'
       }
     >
       <p
@@ -46,14 +48,16 @@ function TodoCard({ todo, setComplete, handleDelete }) {
           }}
           type="button"
         >
-          Edit
+          <span className="sr-only">Edit</span>
+          <Pencil />
         </button>
         <button
           className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
           onClick={() => handleDelete(todo.id)}
           type="button"
         >
-          Remove
+          <span className="sr-only">Remove</span>
+          <Trash />
         </button>
       </div>
     </div>

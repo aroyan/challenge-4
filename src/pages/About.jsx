@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../components/Layout';
 
 function About() {
+  useEffect(() => {
+    document.title = 'About | To-do-do';
+  }, []);
+
   return (
     <Layout>
       <section className="h-[calc(100vh-136px)] flex items-center flex-col mx-8 md:mx-32 mt-8 text-center">

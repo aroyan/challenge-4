@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { EditContext } from '../context/EditContext';
 import Layout from '../components/Layout';
@@ -6,13 +6,14 @@ import Layout from '../components/Layout';
 function Update() {
   const { editTodo, setEditTodo } = useContext(EditContext);
   const [newTodo, setNewTodo] = useState(editTodo);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   const handleUpdate = async () => {
     await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         task: newTodo,
       }),
@@ -21,11 +22,16 @@ function Update() {
       },
     }).then((x) => {
       if (x.status === 200) {
+        setIsLoading(false);
         navigate('/');
         setEditTodo('');
       }
     });
   };
+
+  useEffect(() => {
+    document.title = `Update ${id} | To-do-do`;
+  }, []);
 
   return (
     <Layout>
@@ -50,12 +56,13 @@ function Update() {
               type="button"
               className="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 disabled:opacity-80"
               onClick={(event) => {
+                setIsLoading(true);
                 event.preventDefault();
                 handleUpdate();
               }}
-              disabled={!editTodo || !newTodo}
+              disabled={!editTodo || !newTodo || isLoading}
             >
-              Update Todo
+              {isLoading ? 'Updating' : 'Update Todo'}
             </button>
           </form>
         </section>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 
 function Add() {
   const [newTodo, setNewTodo] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -18,10 +19,15 @@ function Add() {
       },
     }).then((x) => {
       if (x.status === 201) {
+        setIsLoading(false);
         navigate('/');
       }
     });
   };
+
+  useEffect(() => {
+    document.title = 'Add Todo | To-do-do';
+  }, []);
 
   return (
     <Layout>
@@ -49,11 +55,12 @@ function Add() {
             className="text-white w-[340px] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 disabled:opacity-80"
             onClick={(event) => {
               event.preventDefault();
+              setIsLoading(true);
               handleAdd();
             }}
-            disabled={!newTodo}
+            disabled={!newTodo || isLoading}
           >
-            Add Todo
+            {isLoading ? 'Submitting' : 'Add Todo'}
           </button>
         </form>
       </section>

@@ -1,9 +1,13 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 
 function NotFound() {
+  useEffect(() => {
+    document.title = 'Page Not Found | To-do-do';
+  }, []);
+
   return (
     <Layout>
       <section className="flex items-center h-[calc(100vh-136px)] p-16 ">

@@ -8,6 +8,7 @@ import DeleteButton from '../components/Buttons/DeleteButton';
 import Layout from '../components/Layout';
 import SelectForm from '../components/Forms/SelectForm';
 import SearchForm from '../components/Forms/SearchForm';
+import Skeleton from '../components/Skeleton';
 import TodoCard from '../components/TodoCard';
 
 function Home() {
@@ -79,7 +80,7 @@ function Home() {
 
   const handleSetComplete = async (id, currentValue) => {
     await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         complete: !currentValue,
       }),
@@ -131,9 +132,13 @@ function Home() {
     if (refetch) handleGetTodos();
   }, [refetch]);
 
+  useEffect(() => {
+    document.title = 'To-do-do | Challenge 4 by Aroyan';
+  }, []);
+
   return (
     <Layout>
-      <div className="mt-8 mb-12 min-h-screen font-krona-one">
+      <div className="mt-8 mb-12 min-h-screen">
         <section className="flex justify-between">
           <AddNewTodoButton />
           <SelectForm setOption={setOption} disabled={!todos?.length} />
@@ -153,9 +158,7 @@ function Home() {
             />
           ))
         ) : (
-          <div className="h-screen">
-            <p className="text-center">Loading....</p>
-          </div>
+          <Skeleton />
         )}
         {!searchResult?.length && (
           <div className="h-screen text-center">
