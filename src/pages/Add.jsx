@@ -35,6 +35,7 @@ function Add() {
         <form
           className="mt-8 w-full flex flex-col justify-center items-center gap-3"
           onSubmit={(event) => {
+            setIsLoading(true);
             event.preventDefault();
             if (newTodo) {
               handleAdd();

@@ -39,6 +39,7 @@ function Update() {
         <section className="h-[calc(100vh-120px)] flex items-center justify-center flex-col">
           <form
             onSubmit={(event) => {
+              setIsLoading(true);
               event.preventDefault();
               if (newTodo) {
                 handleUpdate();
