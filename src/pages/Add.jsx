@@ -50,6 +50,7 @@ function Add() {
             required
             value={newTodo}
             onChange={(event) => setNewTodo(event.target.value)}
+            disabled={isLoading}
           />
           <button
             type="button"
