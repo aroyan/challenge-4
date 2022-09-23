@@ -31,7 +31,8 @@ function Add() {
 
   return (
     <Layout>
-      <section className="flex h-[calc(100vh-120px)] justify-center items-center">
+      <section className="flex h-[calc(100vh-120px)] justify-center items-center flex-col">
+        <h1 className="text-xl font-semibold">Add Todo</h1>
         <form
           className="mt-8 w-full flex flex-col justify-center items-center gap-3"
           onSubmit={(event) => {

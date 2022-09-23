@@ -37,6 +37,7 @@ function Update() {
     <Layout>
       {editTodo ? (
         <section className="h-[calc(100vh-120px)] flex items-center justify-center flex-col">
+          <h1 className="mb-8 text-xl font-semibold">Update Todo</h1>
           <form
             onSubmit={(event) => {
               setIsLoading(true);
