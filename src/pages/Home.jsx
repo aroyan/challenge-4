@@ -80,7 +80,7 @@ function Home() {
 
   const handleSetComplete = async (id, currentValue) => {
     await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         complete: !currentValue,
       }),

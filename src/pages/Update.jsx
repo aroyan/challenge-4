@@ -13,7 +13,7 @@ function Update() {
 
   const handleUpdate = async () => {
     await fetch(`${import.meta.env.VITE_TODOS_API}/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         task: newTodo,
       }),
